@@ -44,7 +44,7 @@ int main( int argc, char **argv){
         return rv;
     }
     else{
-        printf("    | @ Success to get front data! (data : %d)\n", (int)rv);
+        printf("    | @ Success to get front data! (data : %d)\n", rv);
     }
 
     rv = queue_dequeue( queue);

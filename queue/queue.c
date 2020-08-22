@@ -64,7 +64,7 @@ queue_t* queue_create(){
     queue->rear->prev = queue->front;
     queue->rear->next = NULL;
 
-    queue->count = 0;
+    queue->length = 0;
 
     return queue;
 }
@@ -124,7 +124,7 @@ int queue_enqueue( queue_t *queue, void* data){
             newnode->prev = temp_node;
             newnode->next = rear;
         }
-        queue->count++;
+        queue->length++;
     }
     else{
         printf("    | ! Queue : Object call failed in queue_enqueue\n");
@@ -157,7 +157,7 @@ int queue_dequeue( queue_t *queue){
 
         free( temp_node);
 
-        queue->count--;
+        queue->length--;
 
         printf("    | @ Queue : Dequeue success!\n");
     }
@@ -192,7 +192,7 @@ void* queue_get_front_data( queue_t *queue){
  */
 int queue_is_empty( queue_t *queue){
     if( queue){
-        return queue->count == 0;
+        return queue->length == 0;
     }
     else{
         printf("    | ! Queue : Object call failed in queue_is_empty\n");
@@ -208,7 +208,7 @@ int queue_is_empty( queue_t *queue){
  */
 int queue_get_length( queue_t *queue){
     if( queue){
-        return queue->count;
+        return queue->length;
     }
     else{
         printf("    | ! Queue : Object call failed in queue_get_length\n");

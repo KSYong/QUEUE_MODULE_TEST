@@ -25,7 +25,7 @@ struct queue_s{
     /// 큐의 맨 뒤 노드 (더미)
     node_t rear[ 1];
     /// 큐의 길이 
-    int count;
+    int length;
 };
 
 queue_t* queue_create();
