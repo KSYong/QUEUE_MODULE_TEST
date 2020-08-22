@@ -3,12 +3,12 @@
 // --------------------------------------------
 
 /**
- * @fn static node_t* node_create( int data)
+ * @fn static node_t* node_create( void* data)
  * @brief node 객체를 생성하는 함수
  * @return 생성된 node 객체
  * @param data 생성될 node 객체 안의 사용자 data
  */
-static node_t* node_create( int data){
+static node_t* node_create( void* data){
     node_t *node = ( node_t*)malloc( sizeof( node_t));
     if( node == NULL){
         printf("    | ! Queue : Failed to create node object in node_create!\n");
@@ -33,6 +33,7 @@ static void node_destroy( node_t *target){
     if( target){
         target->prev = NULL;
         target->next = NULL;
+        target->data = NULL;
         free( target);
     }
     else{
@@ -55,11 +56,11 @@ queue_t* queue_create(){
         return OBJECT_ERR;
     }
 
-    queue->front->data = 0;
+    queue->front->data = NULL;
     queue->front->prev = NULL;
     queue->front->next = queue->rear;
 
-    queue->rear->data = 0;
+    queue->rear->data = NULL;
     queue->rear->prev = queue->front;
     queue->rear->next = NULL;
 
@@ -95,13 +96,13 @@ void queue_destroy( queue_t *queue){
 }
 
 /**
- * @fn int queue_enqueue( queue_t *queue, int data)
- * @brief 큐에 새로운 데이터를 추가하는 함수
+ * @fn int queue_enqueue( queue_t *queue, void* data)
+ * @brief 큐에 새로운 데이터를 enqueue 하는 함수
  * @return 에러 열거형 참고
- * @param queue 새로운 데이터를 추가할 큐 객체
- * @param data 추가할 데이터 
+ * @param queue 새로운 데이터를 enqueue 할 큐 객체
+ * @param data 추가할 새로운 사용자 데이터 
  */
-int queue_enqueue( queue_t *queue, int data){
+int queue_enqueue( queue_t *queue, void* data){
     if( queue){
         node_t *newnode = node_create( data);
         node_t *front = queue->front;
@@ -133,9 +134,9 @@ int queue_enqueue( queue_t *queue, int data){
 
 /**
  * @fn int queue_dequeue( queue_t *queue)
- * @brief 큐에서 자료를 꺼내는 함수
+ * @brief 큐에서 자료를 dequeue하는 함수 
  * @return 에러 열거형 참고
- * @param queue 자료를 꺼낼 큐 객체 
+ * @param queue 자료를 dequeue할 큐 객체 
  */
 int queue_dequeue( queue_t *queue){
     if( queue){
@@ -168,16 +169,16 @@ int queue_dequeue( queue_t *queue){
 
 /**
  * @fn int queue_get_front_data( queue_t *queue)
- * @brief 큐에서 가장 앞의 자료를 가져오는 함수
+ * @brief 큐에서 가장 앞의(front) 자료를 가져오는 함수
  * @return 에러 열거형 참고
  * @param queue 자료를 가져올 큐 객체 
  */
-int queue_get_front_data( queue_t *queue){
+void* queue_get_front_data( queue_t *queue){
     if( queue){
         return queue->front->next->data;
     }
     else{
-        printf("    } ! Queue : Object call failed in queue_get_front_data\n");
+        printf("    | ! Queue : Object call failed in queue_get_front_data\n");
         return OBJECT_ERR;
     }
 }
@@ -187,7 +188,7 @@ int queue_get_front_data( queue_t *queue){
  * @fn int queue_is_empty( queue_t *queue)
  * @brief 큐가 비어있는지 확인하는 함수
  * @return 큐가 비어있다면 참, 그렇지 않다면 거짓을 반환한다
- * @param 비어있음을 판단할 큐 객체
+ * @param queue 비어있음을 판단할 큐 객체
  */
 int queue_is_empty( queue_t *queue){
     if( queue){
@@ -195,6 +196,22 @@ int queue_is_empty( queue_t *queue){
     }
     else{
         printf("    | ! Queue : Object call failed in queue_is_empty\n");
+        return OBJECT_ERR;
+    }
+}
+
+/**
+ * @fn int queue_get_length( queue_t *queue)
+ * @brief 큐의 길이를 반환하는 함수 
+ * @return 큐의 길이 
+ * @param queue 길이를 반환할 큐 객체 
+ */
+int queue_get_length( queue_t *queue){
+    if( queue){
+        return queue->count;
+    }
+    else{
+        printf("    | ! Queue : Object call failed in queue_get_length\n");
         return OBJECT_ERR;
     }
 }

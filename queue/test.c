@@ -1,5 +1,10 @@
 #include "queue.h"
 
+/**
+ * @fn int main( int argc, char **argv)
+ * @brief queue 모듈을 테스트하는 메인 함수
+ * @return 에러 열거형 참고 
+ */
 int main( int argc, char **argv){
     printf("*** @ queue test @ ***\n\n");
 
@@ -39,7 +44,7 @@ int main( int argc, char **argv){
         return rv;
     }
     else{
-        printf("    | @ Success to get front data! (data : %d)\n", rv);
+        printf("    | @ Success to get front data! (data : %d)\n", (int)rv);
     }
 
     rv = queue_dequeue( queue);
