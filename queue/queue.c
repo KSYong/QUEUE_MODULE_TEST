@@ -78,14 +78,13 @@ queue_t* queue_create(){
 void queue_destroy( queue_t *queue){
     if( queue){
         node_t *temp_node = queue->front;
-        if( temp_node != NULL){
-            if( temp_node->next != queue->rear){
-                while( temp_node->next != NULL){
-                    temp_node = temp_node->next;
-                    queue_dequeue( queue);
-                }
-            }
+        node_t *rear = queue->rear;
+
+        while( temp_node != rear){
+            queue_dequeue( queue);
+            temp_node = temp_node->next;
         }
+
         memset( queue, '\0', sizeof( queue));
         free( queue);
     }
