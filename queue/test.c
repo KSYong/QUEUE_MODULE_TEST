@@ -1,19 +1,14 @@
 #include "queue.h"
 
-/**
- * @fn int main( int argc, char **argv)
- * @brief queue 모듈을 테스트하는 메인 함수
- * @return 에러 열거형 참고 
- */
 int main( int argc, char **argv){
-    printf("*** @ queue test @ ***\n\n");
+    printf("*** @@ Queue Test @@ ***\n\n");
 
     int rv;
     queue_t *queue;
 
     queue = queue_create();
     if( queue == NULL){
-        printf("    | ! Failed to create queue object!\n");
+        printf("    | ! Failed to create queue obejct!\n");
         return OBJECT_ERR;
     }
     else{
@@ -26,50 +21,38 @@ int main( int argc, char **argv){
         return rv;
     }
     else{
-        printf("    | @ Success to enqueue! (data : 1)\n");
-    }
-
-    rv = queue_is_empty( queue);
-    if( rv){
-        printf("    | ! Failed to determine empty or not\n");
-        return IS_EMPTY;
-    }
-    else{
-        printf("    | @ Success to determine is_empty (queue is not empty)\n");
+        printf("    | @ Success to enqueue\n");
     }
 
     rv = queue_get_front_data( queue);
     if( rv < NORMAL){
-        printf("    | ! Failed to get front data\n");
+        printf("    | ! Failed to get front data, (rv : %d)\n", rv);
         return rv;
     }
     else{
         printf("    | @ Success to get front data! (data : %d)\n", rv);
     }
 
-    rv = queue_dequeue( queue);
+    rv = queue_get_length( queue);
     if( rv < NORMAL){
-        printf("    | ! Failed to dequeue!\n");
+        printf("    | ! Failed to get queue length\n");
         return rv;
     }
     else{
-        printf("    | @ Success to dequeue!\n");
+        printf("    | @ Success to get queue length1 ( length : %d)\n", rv);
     }
-
-    rv = queue_is_empty( queue);
-    if( !rv){
-        printf("    | ! Failed to determine empty or not\n");
-        return IS_EMPTY;
+    
+    rv = queue_dequeue( queue);
+    if( rv < NORMAL){
+        printf("    | ! Failed to dqueue!\n");
+        return rv;
     }
     else{
-        printf("    | @ Success to determine is_empty (queue is empty)\n");
+        printf("    | @ Success to dequeue\n");
     }
-    
+
     queue_destroy( queue);
-    
-    printf("\n@@@@ test complete @@@@\n\n");
+
+    printf("\n*** @@ test complete! @@@\n\n");
 }
-
-
-
 
